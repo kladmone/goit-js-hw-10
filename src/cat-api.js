@@ -12,9 +12,18 @@ export function fetchBreeds() {
 }
 
 export function fetchCatByBreed(breedId) {
+  const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
   return axios
-    .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
-    .then(response => response.data)
+    .get(url)
+    .then(response => {
+      const catData = response.data[0];
+      return {
+        name: catData.breeds[0].name,
+        description: catData.breeds[0].description,
+        temperament: catData.breeds[0].temperament,
+        url: catData.url,
+      };
+    })
     .catch(error => {
       throw new Error(error);
     });

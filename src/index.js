@@ -6,6 +6,13 @@ const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 
 loader.style.display = 'block';
+const hideError = () => {
+  error.style.display = 'none';
+};
+
+const showError = () => {
+  error.style.display = 'block';
+};
 fetchBreeds()
   .then(breeds => {
     breeds.map(({ id, name }) => {
@@ -14,33 +21,53 @@ fetchBreeds()
       option.text = name;
       breedSelect.appendChild(option);
     });
+
     loader.style.display = 'none';
+
+    breedSelect.style.display = 'block';
+    hideError();
   })
   .catch(err => {
     loader.style.display = 'none';
-    error.style.display = 'block';
+    breedSelect.style.display = 'none';
+    showError();
     console.error('Error fetching breeds:', err);
   });
 
 breedSelect.addEventListener('change', e => {
+  loader.style.display = 'block';
+
+  catInfo.style.display = 'none';
+
   const q = e.target.value;
-  fetchCatByBreed(q).then(cat => {
-    renderBreed(cat);
-    console.log(cat);
-  });
+  fetchCatByBreed(q)
+    .then(cat => {
+      renderBreed(cat);
+      hideError();
+    })
+    .catch(err => {
+      loader.style.display = 'none';
+      showError();
+      console.error('Error fetching cat info:', err);
+    });
 });
 
 function breedTemplate(cat) {
   const image = cat.url;
   return `
-  <div class="cat-info">
-  <h2 class="breed-name">${cat.name}</h2>
-    <p class="description">${cat.description}</p>
-    <p class="temperament">${cat.temperament}</p></div>
-     ${image}
+    <div class="cat-info">
+      <h2 class="breed-name">${cat.name}</h2>
+      <p class="description">${cat.description}</p>
+      <p class="temperament">Temperament: ${cat.temperament}</p>
+      <img class="cat-image" src="${image}" alt="${cat.name} width="300" height="300"/>
+    </div>
   `;
 }
+
 function renderBreed(cat) {
   const markup = breedTemplate(cat);
   catInfo.innerHTML = markup;
+
+  loader.style.display = 'none';
+  catInfo.style.display = 'block';
 }
