@@ -10,10 +10,6 @@ export function fetchBreeds() {
       throw error;
     });
 }
-import axios from 'axios';
-
-axios.defaults.headers.common['x-api-key'] =
-  'live_1Rwovf41IemW2Ytj7Mt4b69JhAYVwi0mOl7CeObFDIOfHlLdZwqDaKDG5SvEsTX6';
 
 export function fetchCatByBreed(breedId) {
   return axios

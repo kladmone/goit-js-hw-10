@@ -3,21 +3,17 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 const breedSelect = document.querySelector('.breed-select');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
-const name = document.querySelector('.breed-name');
-const description = document.querySelector('.description');
-const temperament = document.querySelector('.temperament');
-const img = document.querySelector('.cat-image');
+const catInfo = document.querySelector('.cat-info');
 
 loader.style.display = 'block';
 fetchBreeds()
   .then(breeds => {
-    breeds.forEach(breed => {
+    breeds.map(({ id, name }) => {
       const option = document.createElement('option');
-      option.value = breed.id;
-      option.text = breed.name;
+      option.value = id;
+      option.text = name;
       breedSelect.appendChild(option);
     });
-
     loader.style.display = 'none';
   })
   .catch(err => {
@@ -27,9 +23,24 @@ fetchBreeds()
   });
 
 breedSelect.addEventListener('change', e => {
-  e.preventDefault();
-  const q = e.target.elements.breedSelect.value;
-  fetchBreeds(q).then(cat => {
+  const q = e.target.value;
+  fetchCatByBreed(q).then(cat => {
+    renderBreed(cat);
     console.log(cat);
   });
 });
+
+function breedTemplate(cat) {
+  const image = cat.url;
+  return `
+  <div class="cat-info" style="display: none">
+  <h2 class="breed-name">${cat.name}</h2>
+    <p class="description">${cat.description}</p>
+    <p class="temperament">${cat.temperament}</p></div>
+     ${image}
+  `;
+}
+function renderBreed(cat) {
+  const markup = breedTemplate(cat);
+  catInfo.innerHTML = markup;
+}
