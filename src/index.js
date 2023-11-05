@@ -33,7 +33,7 @@ breedSelect.addEventListener('change', e => {
 function breedTemplate(cat) {
   const image = cat.url;
   return `
-  <div class="cat-info" style="display: none">
+  <div class="cat-info">
   <h2 class="breed-name">${cat.name}</h2>
     <p class="description">${cat.description}</p>
     <p class="temperament">${cat.temperament}</p></div>
