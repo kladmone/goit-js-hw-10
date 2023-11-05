@@ -8,6 +8,7 @@ body{
     font-weight: bold;
 }
 .error{
+    display: none;
     color: red;
 }
 .cat-info{
@@ -16,4 +17,7 @@ body{
 }
 .description{
     max-width: 350px;
+}
+.is-hidden {
+    display: none;
 }

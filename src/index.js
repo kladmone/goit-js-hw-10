@@ -52,6 +52,12 @@ breedSelect.addEventListener('change', e => {
     });
 });
 
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    breedSelect.classList.remove('is-hidden');
+  }, 2000);
+});
+
 function breedTemplate(cat) {
   const image = cat.url;
   return `
