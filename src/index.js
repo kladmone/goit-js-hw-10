@@ -55,11 +55,11 @@ breedSelect.addEventListener('change', e => {
 function breedTemplate(cat) {
   const image = cat.url;
   return `
+  <img class="cat-image" src="${image}" alt="${cat.name}" width="400" height="400"/>
     <div class="cat-info">
       <h2 class="breed-name">${cat.name}</h2>
       <p class="description">${cat.description}</p>
-      <p class="temperament">Temperament: ${cat.temperament}</p>
-      <img class="cat-image" src="${image}" alt="${cat.name} width="300" height="300"/>
+      <p class="temperament"><span class="temp-span">Temperament:</span> ${cat.temperament}</p>
     </div>
   `;
 }
@@ -69,5 +69,5 @@ function renderBreed(cat) {
   catInfo.innerHTML = markup;
 
   loader.style.display = 'none';
-  catInfo.style.display = 'block';
+  catInfo.style.display = 'flex';
 }

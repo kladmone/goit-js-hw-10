@@ -1,0 +1,19 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+.temp-span{
+    font-weight: bold;
+} 
+.loader{
+    font-weight: bold;
+}
+.error{
+    color: red;
+}
+.cat-info{
+    flex-direction: row;
+    padding: 20px 20px;
+}
+.description{
+    max-width: 350px;
+}
